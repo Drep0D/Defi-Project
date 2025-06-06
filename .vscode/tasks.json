@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Subir a GitHub",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "git add .; git commit -m \\\"Actualizacion rapida\\\"; git push"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
