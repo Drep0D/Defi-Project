@@ -1,0 +1,112 @@
+Fecha,Descripción,Categoría,Monto,Tipo
+01/28/25,", Inc.",Otros,25.5,Ingreso
+01/28/25,From  A,Otros,15.0,Ingreso
+01/29/25,"From For ""Bi""; Conf",Otros,153.0,Ingreso
+01/29/25,Cash App*Juan 01/29 # Pmnt Rcvd Cash App*Juan Gar,Otros,14.74,Ingreso
+01/31/25,Atm 01/31 #   At New Tam,Otros,292.0,Ingreso
+01/31/25,From,Otros,200.0,Ingreso
+01/31/25,Inc,Otros,143.47,Ingreso
+01/31/25,From,Otros,8.0,Ingreso
+01/31/25,Inc,Otros,0.87,Ingreso
+01/31/25,Inc,Otros,0.01,Ingreso
+02/03/25,From,Otros,150.0,Ingreso
+02/03/25,Inc,Otros,0.87,Ingreso
+02/03/25,Inc,Otros,0.87,Ingreso
+02/04/25,Co  Pmt,Otros,150.0,Ingreso
+02/06/25,From,Otros,410.0,Ingreso
+02/07/25,From  A,Otros,100.0,Ingreso
+02/07/25,Inc,Otros,22.44,Ingreso
+02/07/25,Digi* Zp4B,Otros,0.11,Ingreso
+02/10/25,Co  Pmt,Otros,150.0,Ingreso
+02/10/25,Co  Pmt,Otros,70.0,Ingreso
+02/19/25,Co  Pmt,Otros,150.0,Ingreso
+02/20/25,Co  Pmt,Otros,1042.2,Ingreso
+02/20/25,Pa,Otros,81.0,Ingreso
+02/20/25,From,Otros,75.0,Ingreso
+02/20/25,From Anna,Otros,48.0,Ingreso
+01/28/25,,Otros,-40.0,Gasto
+01/28/25,Ato,Otros,-16.93,Gasto
+01/29/25,Tst*  El,Otros,-50.8,Gasto
+01/29/25,,Otros,-30.52,Gasto
+01/30/25,Oh,Otros,-28.25,Gasto
+01/30/25,Csc,Otros,-2.5,Gasto
+01/30/25,Csc,Otros,-2.5,Gasto
+01/30/25,7-,Otros,-40.0,Gasto
+01/31/25,Juan,Otros,-1.0,Gasto
+01/31/25,Juan,Otros,-0.1,Gasto
+02/03/25,2 Lutz,Otros,-7.92,Gasto
+02/03/25,,Otros,-10.89,Gasto
+02/03/25,,Otros,-7.81,Gasto
+02/03/25,7-,Otros,-25.0,Gasto
+02/03/25,,Otros,-17.0,Gasto
+02/03/25,P,Otros,-2.0,Gasto
+02/03/25,S F,Otros,-11.1,Gasto
+02/03/25,Fl,Otros,-35.0,Gasto
+02/03/25,E East,Otros,-12.96,Gasto
+02/04/25,02/04 #    Pa  City,Otros,-17.04,Gasto
+02/04/25,Wad 02/04 #   #-Ad35  City,Otros,-43.5,Gasto
+02/05/25,,Otros,-1.99,Gasto
+02/05/25,West New,Otros,-22.62,Gasto
+02/06/25,Njt- -,Otros,-1.8,Gasto
+02/07/25,Njt,Otros,-2.9,Gasto
+02/07/25,.C,Otros,-7.68,Gasto
+02/07/25,Abc*-Eos Fit,Otros,-43.0,Gasto
+02/07/25,Mo,Otros,-402.57,Gasto
+02/10/25,Njt- -,Otros,-2.9,Gasto
+02/10/25,", Inc.",Otros,-16.5,Gasto
+02/10/25,Dd/Br # Q35 W New York,Otros,-7.44,Gasto
+02/10/25,Njt,Otros,-4.0,Gasto
+02/10/25,New York,Otros,-4.83,Gasto
+02/10/25,Sq  Brid,Otros,-6.53,Gasto
+02/10/25,Neck,Otros,-5.44,Gasto
+02/10/25,Mta*Nyct  New York,Otros,-2.9,Gasto
+02/10/25,New York,Otros,-18.82,Gasto
+02/10/25,New York,Otros,-23.13,Gasto
+02/10/25,Sq *Figo New York,Otros,-8.71,Gasto
+02/10/25,New York,Otros,-6.24,Gasto
+02/10/25,Mta*Nyct  New York,Otros,-2.9,Gasto
+02/10/25,Tst*Los  No. New York,Otros,-12.85,Gasto
+02/10/25,Njt- -,Otros,-4.0,Gasto
+02/11/25,Njt- -,Otros,-2.9,Gasto
+02/11/25,Mta*Nyct  Re,Otros,-2.9,Gasto
+02/11/25,Atm 02/11 #   And  New York,Otros,-50.0,Gasto
+02/12/25,Pp,Otros,-19.99,Gasto
+02/12/25,Mta*Nyct  New York,Otros,-2.9,Gasto
+02/12/25,Tada   New York,Otros,-13.6,Gasto
+02/12/25,Sq *Figo New York,Otros,-7.21,Gasto
+02/12/25,Si,Otros,-20.9,Gasto
+02/13/25,Mta*Nyct  New York,Otros,-2.9,Gasto
+02/13/25,Njt,Otros,-4.0,Gasto
+02/14/25,Pp,Otros,-15.89,Gasto
+02/18/25,Pp,Otros,-20.85,Gasto
+02/20/25,,Otros,-3.28,Gasto
+02/20/25,Nnt * .Info,Otros,-11.99,Gasto
+02/21/25,Natl Gen Ins*Nps4,Otros,-248.02,Gasto
+02/21/25,Food,Otros,-8.0,Gasto
+02/21/25,H Mart,Otros,-83.12,Gasto
+02/21/25,Pmnt Sent,Otros,-79.7,Gasto
+02/21/25,Pmnt Sent  Cash App*Juan Gar,Otros,-10.0,Gasto
+02/24/25,,Otros,-6.98,Gasto
+02/24/25,Mo,Otros,-100.47,Gasto
+02/24/25,"Labs, Inc.",Otros,-12.0,Gasto
+02/24/25,Eats San,Otros,-24.5,Gasto
+02/24/25,Eats San,Otros,-22.71,Gasto
+01/31/25,To,Otros,-20.0,Gasto
+01/31/25,To Mami,Otros,-630.0,Gasto
+01/31/25,Inc,Otros,-0.01,Gasto
+02/03/25,To,Otros,-27.0,Gasto
+02/03/25,Mart,Otros,-32.3,Gasto
+02/04/25,"For """"; Conf",Otros,-95.0,Gasto
+02/06/25,To  Pb,Otros,-16.0,Gasto
+02/10/25,To  Pb,Otros,-10.0,Gasto
+02/10/25,"For Jose""; Conf",Otros,-15.0,Gasto
+02/11/25,To Mami,Otros,-35.0,Gasto
+02/13/25,To,Otros,-10.0,Gasto
+02/19/25,"For Mano""; Conf",Otros,-100.0,Gasto
+02/20/25,To Jhon,Otros,-30.0,Gasto
+02/20/25,Crd,Otros,-120.0,Gasto
+02/21/25,Hi,Otros,-315.98,Gasto
+02/21/25,Fee,Otros,-15.0,Gasto
+02/24/25,To,Otros,-35.0,Gasto
+02/04/25,Wad -Ad,Otros,-2.5,Gasto
+02/04/25,Wad Bal Inq -Ad,Otros,-0.0,Gasto
