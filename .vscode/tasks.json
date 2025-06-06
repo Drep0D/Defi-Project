@@ -4,11 +4,7 @@
     {
       "label": "Subir a GitHub",
       "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-Command",
-        "git add .; git commit -m \\\"Actualizacion rapida\\\"; git push"
-      ],
+      "command": "${workspaceFolder}\\push_git.bat",
       "problemMatcher": [],
       "group": {
         "kind": "build",
