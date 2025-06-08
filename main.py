@@ -1,121 +1,115 @@
+import json
 import pdfplumber
 import pandas as pd
 from model.processor import TransactionProcessor
-# Actualizacion para ver si se sube a git
 
-def procesar_pdf_a_csv(pdf_path: str):
-    """
-    Procesa un extracto bancario PDF y genera archivos CSV con las transacciones.
-    
-    Args:
-        pdf_path (str): Ruta al archivo PDF a procesar
-    """
-    # Inicializar el procesador de transacciones
-    processor = TransactionProcessor()
-    
+
+def load_config(path: str = "config.json") -> dict:
+    """Carga el archivo de configuración JSON."""
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def procesar_pdf_raw(pdf_path: str, output: str = "transacciones_raw.csv"):
+    """Genera un CSV con las transacciones tal como aparecen en el estado de cuenta."""
     transacciones = []
+    with pdfplumber.open(pdf_path) as pdf:
+        for pagina in pdf.pages:
+            texto = pagina.extract_text()
+            if not texto:
+                continue
+            for linea in texto.split("\n"):
+                if es_linea_transaccion(linea):
+                    t = extraer_transaccion_raw(linea)
+                    if t:
+                        transacciones.append(t)
 
+    if transacciones:
+        pd.DataFrame(transacciones).to_csv(output, index=False)
+        print(f"✅ CSV sin procesar guardado en {output}")
+
+
+def procesar_pdf_a_csv(pdf_path: str, config: dict):
+    """Procesa un extracto bancario PDF y genera archivos CSV con las transacciones."""
+    processor = TransactionProcessor(config.get("common_companies"))
+    transacciones = []
     with pdfplumber.open(pdf_path) as pdf:
         for pagina in pdf.pages:
             texto = pagina.extract_text()
             if texto:
-                lineas = texto.split('\n')
-                for linea in lineas:
+                for linea in texto.split("\n"):
                     if es_linea_transaccion(linea):
-                        transaccion = extraer_transaccion(linea, processor)
-                        if transaccion:
-                            transacciones.append(transaccion)
+                        t = extraer_transaccion(linea, processor, config)
+                        if t:
+                            transacciones.append(t)
+    guardar_transacciones(transacciones, config["outputs"])
 
-    # Convertir a DataFrame y guardar archivos
-    guardar_transacciones(transacciones)
 
 def es_linea_transaccion(linea: str) -> bool:
-    """Determina si una línea contiene una transacción bancaria"""
-    return ('/' in linea and 
-            any(char.isdigit() for char in linea) and
-            len(linea.split()) >= 3)
+    """Determina si una línea contiene una transacción bancaria."""
+    return ('/' in linea
+            and any(char.isdigit() for char in linea)
+            and len(linea.split()) >= 3)
 
-def extraer_transaccion(linea: str, processor: TransactionProcessor) -> dict:
-    """
-    Extrae los datos de una transacción de una línea de texto.
-    
-    Args:
-        linea (str): Línea de texto del PDF
-        processor (TransactionProcessor): Instancia del procesador de nombres
-    
-    Returns:
-        dict: Diccionario con los datos de la transacción o None si hay error
-    """
+
+def extraer_transaccion_raw(linea: str) -> dict | None:
+    """Devuelve la información de la transacción sin limpiar la descripción."""
     try:
         partes = linea.strip().split()
         fecha = partes[0]
         monto = float(partes[-1].replace(",", ""))
-        nombre_sucio = ' '.join(partes[1:-1])
-        
-        # Usar el procesador para limpiar el nombre
-        nombre_limpio = processor.extract_company_name(nombre_sucio)
-        
-        # Determinar categoría automáticamente
-        categoria = determinar_categoria(nombre_limpio)
-        
-        return {
-            'Fecha': fecha,
-            'Descripción': nombre_limpio,
-            'Categoría': categoria,
-            'Monto': monto,
-            'Tipo': 'Ingreso' if monto > 0 else 'Gasto'
-        }
-    except (ValueError, IndexError) as e:
-        print(f"⚠️ Error procesando línea: {linea} - {e}")
+        descripcion = " ".join(partes[1:-1])
+        return {"Fecha": fecha, "Descripción": descripcion, "Monto": monto}
+    except (ValueError, IndexError):
         return None
 
-def determinar_categoria(nombre: str) -> str:
-    """Determina la categoría basándose en el nombre de la transacción"""
+
+def extraer_transaccion(linea: str,
+                        processor: TransactionProcessor,
+                        config: dict) -> dict | None:
+    """Extrae los datos de una transacción de una línea de texto."""
+    try:
+        partes = linea.strip().split()
+        fecha = partes[0]
+        monto = float(partes[-1].replace(",", ""))
+        nombre_sucio = " ".join(partes[1:-1])
+
+        nombre_limpio = processor.extract_company_name(nombre_sucio)
+        categoria = determinar_categoria(nombre_limpio, config["categorias"])
+
+        return {
+            "Fecha": fecha,
+            "Descripción": nombre_limpio,
+            "Categoría": categoria,
+            "Monto": monto,
+            "Tipo": "Ingreso" if monto > 0 else "Gasto",
+        }
+    except (ValueError, IndexError):
+        return None
+
+
+def determinar_categoria(nombre: str, categorias: dict) -> str:
+    """Determina la categoría basándose en el nombre de la transacción."""
     nombre = nombre.lower()
-    categorias = {
-        'Comida': ['mcdonald', 'starbucks', 'don julios', 'wawa', 'panera', 'hibachi'],
-        'Compras': ['walmart', 'ross', 'aldi', 'home depot', 'sams club'],
-        'Transporte': ['lyft', 'uber', 'sunpass', 'racetrac'],
-        'Entretenimiento': ['netflix', 'spotify', 'youtube', 'steam'],
-        'Servicios': ['spectrum', 'paypal', 'zelle'],
-        'Salud': ['gym', 'vitamin', 'farmacia'],
-        'Transferencia': ['zelle', 'transfer'],
-        'Nómina': ['square', 'payroll'],
-        'Otros': []
-    }
-    
     for categoria, keywords in categorias.items():
         if any(keyword in nombre for keyword in keywords):
             return categoria
-    return 'Otros'
+    return "Otros"
 
-def guardar_transacciones(transacciones: list):
-    """
-    Guarda las transacciones en archivos CSV separados por tipo
-    
-    Args:
-        transacciones (list): Lista de diccionarios con transacciones
-    """
+
+def guardar_transacciones(transacciones: list, outputs: dict):
+    """Guarda las transacciones en archivos CSV separados por tipo."""
     df = pd.DataFrame(transacciones)
-    
-    # Filtrar y guardar gastos
-    df_gastos = df[df['Tipo'] == 'Gasto'].copy()
-    df_gastos.to_csv("gastos.csv", index=False)
-    
-    # Filtrar y guardar ingresos
-    df_ingresos = df[df['Tipo'] == 'Ingreso'].copy()
-    df_ingresos.to_csv("ingresos.csv", index=False)
-    
-    # Opcional: guardar todas las transacciones
-    df.to_csv("todas_transacciones.csv", index=False)
-    
+    df_gastos = df[df["Tipo"] == "Gasto"]
+    df_ingresos = df[df["Tipo"] == "Ingreso"]
+
+    df_gastos.to_csv(outputs.get("gastos", "gastos.csv"), index=False)
+    df_ingresos.to_csv(outputs.get("ingresos", "ingresos.csv"), index=False)
+    df.to_csv(outputs.get("todas", "todas_transacciones.csv"), index=False)
+
     print("✅ Archivos CSV creados con éxito:")
-    print(f"- gastos.csv ({len(df_gastos)} transacciones)")
-    print(f"- ingresos.csv ({len(df_ingresos)} transacciones)")
+
 
 if __name__ == "__main__":
-    # Configuración
-    pdf_path = "Est_cuenta.pdf"  # Cambia esto por tu ruta real
-    
-    # Procesar el PDF
-    procesar_pdf_a_csv(pdf_path)
+    config = load_config()
+    procesar_pdf_a_csv(config["pdf_path"], config)

@@ -1,0 +1,29 @@
+{
+  "pdf_path": "Est_cuenta.pdf",
+  "outputs": {
+    "gastos": "gastos.csv",
+    "ingresos": "ingresos.csv",
+    "todas": "todas_transacciones.csv"
+  },
+  "common_companies": {
+    "mcdonalds": ["mcdonald's", "mcdonalds"],
+    "starbucks": ["starbucks"],
+    "walmart": ["walmart", "wal-mart"],
+    "netflix": ["netflix"],
+    "amazon": ["amazon.com", "amazon"],
+    "don julios": ["don julios", "tst*don julios"],
+    "square": ["square inc"],
+    "zelle": ["zelle payment"]
+  },
+  "categorias": {
+    "Comida": ["mcdonald", "starbucks", "don julios", "wawa", "panera", "hibachi"],
+    "Compras": ["walmart", "ross", "aldi", "home depot", "sams club"],
+    "Transporte": ["lyft", "uber", "sunpass", "racetrac"],
+    "Entretenimiento": ["netflix", "spotify", "youtube", "steam"],
+    "Servicios": ["spectrum", "paypal", "zelle"],
+    "Salud": ["gym", "vitamin", "farmacia"],
+    "Transferencia": ["zelle", "transfer"],
+    "Nómina": ["square", "payroll"],
+    "Otros": []
+  }
+}
