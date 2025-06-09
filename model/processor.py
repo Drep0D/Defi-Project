@@ -66,8 +66,6 @@ class TransactionProcessor:
             r'(?:PURCHASE\\s*\\d{4}\\s*)(?:[A-Z]+\\*)?(.*?)(?:\\s*\\d{10,}|$)',
             r'(?:ZELLE\\s*PAYMENT\\s*FROM\\s*)(.*?)(?:\\s*CONF\\#|$)',
             r'(?:[A-Z]+\\s*INC\\s*)(.*?)(?:\\s*DES:|$)',
-            r'(.*?)(?:\\s*#[0-9]+\\s+|\\s+[A-Z]{2}\\s*$)',
-            r'([A-Z][A-Z\\'\\s&]+)(?=\\s+[A-Z0-9]{4,}|$)',
         ]
             
         for pattern in patterns:

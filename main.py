@@ -2,7 +2,7 @@ import json
 import pdfplumber
 import pandas as pd
 from model.processor import TransactionProcessor
-
+from reader import leer_pdf
 
 def load_config(path: str = "config.json") -> dict:
     """Carga el archivo de configuración JSON."""
@@ -13,16 +13,13 @@ def load_config(path: str = "config.json") -> dict:
 def procesar_pdf_raw(pdf_path: str, output: str = "transacciones_raw.csv"):
     """Genera un CSV con las transacciones tal como aparecen en el estado de cuenta."""
     transacciones = []
-    with pdfplumber.open(pdf_path) as pdf:
-        for pagina in pdf.pages:
-            texto = pagina.extract_text()
-            if not texto:
-                continue
-            for linea in texto.split("\n"):
-                if es_linea_transaccion(linea):
-                    t = extraer_transaccion_raw(linea)
-                    if t:
-                        transacciones.append(t)
+    lineas = leer_pdf(pdf_path)
+
+    for linea in lineas:
+        if es_linea_transaccion(linea):
+            t = extraer_transaccion_raw(linea)
+            if t:
+                transacciones.append(t)
 
     if transacciones:
         pd.DataFrame(transacciones).to_csv(output, index=False)
@@ -33,15 +30,13 @@ def procesar_pdf_a_csv(pdf_path: str, config: dict):
     """Procesa un extracto bancario PDF y genera archivos CSV con las transacciones."""
     processor = TransactionProcessor(config.get("common_companies"))
     transacciones = []
-    with pdfplumber.open(pdf_path) as pdf:
-        for pagina in pdf.pages:
-            texto = pagina.extract_text()
-            if texto:
-                for linea in texto.split("\n"):
-                    if es_linea_transaccion(linea):
-                        t = extraer_transaccion(linea, processor, config)
-                        if t:
-                            transacciones.append(t)
+    lineas = leer_pdf(pdf_path)
+
+    for linea in lineas:
+        if es_linea_transaccion(linea):
+            t = extraer_transaccion(linea, processor, config)
+            if t:
+                transacciones.append(t)
     guardar_transacciones(transacciones, config["outputs"])
 
 
